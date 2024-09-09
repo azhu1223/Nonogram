@@ -28,6 +28,8 @@ FetchContent_Declare(
   URL https://github.com/google/googletest/archive/refs/heads/main.zip
 )
 
+include(GoogleTest)
+
 # For Windows: Prevent overriding the parent project's compiler/linker settings
 set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 FetchContent_MakeAvailable(googletest)
@@ -47,3 +49,11 @@ add_executable(nonogram src/main.cpp)
 
 target_link_libraries(nonogram
                     Game_lib)
+
+add_executable(Board_test tests/BoardTest.cpp)
+
+target_link_libraries(Board_test 
+                      Board_lib
+                      gtest_main)
+
+gtest_discover_tests(Board_test WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/tests)
