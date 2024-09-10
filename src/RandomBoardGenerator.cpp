@@ -5,7 +5,6 @@
 #include <vector>
 #include <memory>
 #include <random>
-#include <utility>
 
 // Returns a result object that tells whether the returned pointer is valid or not.
 Result<std::unique_ptr<Board>> RandomBoardGenerator::generateBoard(int rows, int columns, double probOfFilled) {
@@ -13,8 +12,8 @@ Result<std::unique_ptr<Board>> RandomBoardGenerator::generateBoard(int rows, int
         return {nullptr, false};
     }
 
-    std::vector<Cell> emptyRow = std::vector<Cell>(columns, Cell::EMPTY);
-    std::unique_ptr<BoardData> boardData = std::unique_ptr<BoardData>(new BoardData(rows, emptyRow));
+    std::vector<Cell> emptyRow(columns, Cell::NOTHING);
+    std::unique_ptr<BoardData> boardData(new BoardData(rows, emptyRow));
 
     // Initialize random number generator from a uniform distribution.
     std::random_device rd;
