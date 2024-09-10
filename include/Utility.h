@@ -5,6 +5,7 @@ Holds constants and other useful constructs used throughout the program.
 #ifndef UTILITY_H
 #define UTILITY_H
 
+#include <vector>
 #include <utility>
 
 // Cell::FILLED represents a filled in cell. Cell::EMPTY represents a cell that has not been modified yet. /
@@ -24,5 +25,10 @@ enum class FillDirection {
 };
 
 using Point = std::pair<int, int>;
+
+using BoardData = std::vector<std::vector<Cell>>;
+
+template <typename T>
+using Result = std::pair<T, bool>;
 
 #endif
