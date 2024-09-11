@@ -8,7 +8,7 @@
 
 class BoardGenerator {
 public:
-    virtual Result<std::unique_ptr<Board>> generateBoard(int rows, int columns, double probOfFilled) = 0;
+    virtual Result<u_ptr<Board>> generateBoard(int rows, int columns, double probOfFilled) = 0;
 };
 
 #endif

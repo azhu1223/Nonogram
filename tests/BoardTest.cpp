@@ -9,10 +9,10 @@
 
 class BoardTest : public ::testing::Test {
 protected:
-    std::unique_ptr<std::vector<std::vector<Cell>>> boardVector;
+    u_ptr<std::vector<std::vector<Cell>>> boardVector;
 
     void SetUp() override {
-        boardVector = std::unique_ptr<std::vector<std::vector<Cell>>>(new std::vector<std::vector<Cell>>);
+        boardVector = u_ptr<std::vector<std::vector<Cell>>>(new std::vector<std::vector<Cell>>);
         boardVector->emplace_back(3, Cell::EMPTY);
         boardVector->emplace_back(3, Cell::EMPTY);
         boardVector->emplace_back(3, Cell::EMPTY);

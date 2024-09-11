@@ -5,7 +5,7 @@
 #include <memory>
 #include <utility>
 
-Board::Board(std::unique_ptr<BoardData> b) {
+Board::Board(u_ptr<BoardData> b) {
     m_board = std::move(b);
     m_rows = m_board->size();
     m_cols = (*m_board)[0].size();

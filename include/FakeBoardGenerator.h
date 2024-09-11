@@ -9,7 +9,7 @@
 
 class FakeBoardGenerator : BoardGenerator {
 public:
-    virtual Result<std::unique_ptr<Board>> generateBoard(int rows, int columns, double probOfFilled);
+    virtual Result<u_ptr<Board>> generateBoard(int rows, int columns, double probOfFilled);
 };
 
 #endif

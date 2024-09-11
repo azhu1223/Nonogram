@@ -8,7 +8,7 @@
 
 class Board {
 public:
-    Board(std::unique_ptr<BoardData> b);
+    Board(u_ptr<BoardData> b);
 
     // Returns if the provided move is valid or not.
     bool fill(const FillDirection& d, const Point& start, const Point& end, const Cell& type);
@@ -19,7 +19,7 @@ public:
 private:
     int m_cols;
     int m_rows;
-    std::unique_ptr<BoardData> m_board;
+    u_ptr<BoardData> m_board;
 };
 
 inline
