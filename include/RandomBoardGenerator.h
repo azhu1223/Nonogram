@@ -1,0 +1,21 @@
+#ifndef RANDOM_BOARD_GENERATOR_H
+#define RANDOM_BOARD_GENERATOR_H
+
+#include "BoardGenerator.h"
+#include "Board.h"
+#include "Utility.h"
+
+#include <memory>
+#include <random>
+#include <functional>
+
+class RandomBoardGenerator : BoardGenerator {
+public:
+    RandomBoardGenerator(double probOfFilled, std::function<double()> rng);
+    virtual Result<u_ptr<Board>> generateBoard(int rows, int columns);
+private:
+    double m_probOfFilled;
+    std::function<double()> m_rng;
+};
+
+#endif
