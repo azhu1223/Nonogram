@@ -4,7 +4,6 @@
 #include "Utility.h"
 #include <vector>
 #include <iostream>
-#include <memory>
 #include <utility>
 
 class BoardTest : public ::testing::Test {

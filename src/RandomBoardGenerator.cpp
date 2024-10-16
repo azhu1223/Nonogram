@@ -5,29 +5,34 @@
 #include <vector>
 #include <memory>
 #include <random>
+#include <functional>
+#include <iostream>
 
-RandomBoardGenerator::RandomBoardGenerator(u_ptr<std::mt19937> rng, u_ptr<std::uniform_real_distribution<double>> distr) : BoardGenerator() {
-    m_rng = std::move(rng);
-    m_distr = std::move(distr);
+RandomBoardGenerator::RandomBoardGenerator(double probOfFilled, std::function<double()> rng) : BoardGenerator() {
+    m_probOfFilled = probOfFilled;
+    m_rng = rng;
 }
 
 // Returns a result object that tells whether the returned pointer is valid or not.
-Result<u_ptr<Board>> RandomBoardGenerator::generateBoard(int rows, int columns, double probOfFilled) {
-    if (rows <= 0 || columns <= 0 || probOfFilled < 0 || probOfFilled > 1) {
+Result<u_ptr<Board>> RandomBoardGenerator::generateBoard(int rows, int columns) {
+    if (rows <= 0 || columns <= 0 || m_probOfFilled < 0 || m_probOfFilled > 1) {
         return {nullptr, false};
     }
 
-    std::vector<Cell> emptyRow(columns, Cell::NOTHING);
-    u_ptr<BoardData> boardData(new BoardData(rows, emptyRow));
+    // Intialize empty board vector
+    u_ptr<BoardData> boardData(new BoardData(rows));
 
-    // Initialize random number generator from a uniform distribution.
+    for (int i = 0; i < rows; i++) {
+        std::vector<Cell> row(columns, Cell::NOTHING);
 
-    for (auto &row : *boardData) {
-        for (auto &cell : row) {
-            if ((*m_distr)(*m_rng) < probOfFilled) {
+        // Fill in each column according to RNG
+        for (Cell &cell : row) {
+            if (m_rng() < m_probOfFilled) {
                 cell = Cell::FILLED;
             }
         }
+
+        (*boardData)[i].swap(row);
     }
 
     return {u_ptr<Board>(new Board(std::move(boardData))), true};

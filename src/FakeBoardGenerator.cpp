@@ -3,10 +3,10 @@
 #include "Utility.h"
 
 #include <vector>
-#include <memory>
+#include <functional>
 
 // Returns a board with the diagonal filled for testing purposes.
-Result<u_ptr<Board>> FakeBoardGenerator::generateBoard(int rows, int columns, double probOfFilled) {
+Result<u_ptr<Board>> FakeBoardGenerator::generateBoard(int rows, int columns, double probOfFilled, std::function<double()> rng) {
     if (rows <= 0 || columns <= 0 || probOfFilled < 0 || probOfFilled > 1) {
         return {nullptr, false};
     }

@@ -7,14 +7,15 @@
 
 #include <memory>
 #include <random>
+#include <functional>
 
 class RandomBoardGenerator : BoardGenerator {
 public:
-    RandomBoardGenerator(u_ptr<std::mt19937> rng, u_ptr<std::uniform_real_distribution<double>> distr);
-    virtual Result<u_ptr<Board>> generateBoard(int rows, int columns, double probOfFilled);
+    RandomBoardGenerator(double probOfFilled, std::function<double()> rng);
+    virtual Result<u_ptr<Board>> generateBoard(int rows, int columns);
 private:
-    u_ptr<std::mt19937> m_rng; 
-    u_ptr<std::uniform_real_distribution<double>> m_distr;
+    double m_probOfFilled;
+    std::function<double()> m_rng;
 };
 
 #endif
