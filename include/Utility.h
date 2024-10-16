@@ -25,6 +25,12 @@ enum class FillDirection {
     CELL
 };
 
+enum class Setting {
+    ROW_SIZE,
+    COLUMN_SIZE,
+    FILL_PROBABILITY
+};
+
 using Point = std::pair<int, int>;
 
 using BoardData = std::vector<std::vector<Cell>>;
