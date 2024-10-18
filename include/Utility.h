@@ -8,15 +8,24 @@ Holds constants and other useful constructs used throughout the program.
 #include <vector>
 #include <utility>
 #include <memory>
+#include <unordered_map>
 
-// Cell::FILLED represents a filled in cell. Cell::EMPTY represents a cell that has not been modified yet. /
-// Cell::NOTHING represents a cell that has been determined to be empty. Cell::TEST represents a cell that /
-// is tentatively filled in for testing.
+// Cell::REVEALED represents a REVEALED in cell. Cell::DEFAULT represents a cell that has not been modified yet. /
+// Cell::ELIMINATED represents a cell that has been determined to be empty. Cell::TEST represents a cell that /
+// is tentatively filled for testing.
 enum class Cell {
     FILLED = '0',
-    EMPTY = '.',
-    NOTHING = 'x',
+    DEFAULT = '.',
+    ELIMINATED = 'x',
     TEST = '?'
+};
+
+enum class Action {
+    FILL,
+    ELIMINATE,
+    TEST,
+    QUIT,
+    ERROR
 };
 
 enum class FillDirection {
@@ -25,9 +34,19 @@ enum class FillDirection {
     CELL
 };
 
+enum class Setting {
+    ROW_SIZE,
+    COLUMN_SIZE,
+    FILL_PROBABILITY
+};
+
 using Point = std::pair<int, int>;
 
 using BoardData = std::vector<std::vector<Cell>>;
+
+using Settings = std::unordered_map<Setting, std::string>;
+
+using Move = std::pair<Action, std::pair<Point, Point>>;
 
 template <typename T>
 using Result = std::pair<T, bool>;

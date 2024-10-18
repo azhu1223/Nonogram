@@ -39,23 +39,25 @@ enable_testing()
 include_directories(include)
 
 # Libraries
-add_library(Board_lib src/Board.cpp)
 add_library(Game_lib src/Game.cpp)
+add_library(PlayerInput_lib src/PlayerInput.cpp)
+add_library(Board_lib src/Board.cpp)
 add_library(RandomBoardGenerator_lib src/RandomBoardGenerator.cpp)
 
 target_link_libraries(Game_lib
                     Board_lib)
 
+target_link_libraries(PlayerInput_lib
+                      Board_lib)
+
 target_link_libraries(RandomBoardGenerator_lib
                       Board_lib)
 
 add_executable(nonogram src/main.cpp)
-
 target_link_libraries(nonogram
                     Game_lib)
 
 add_executable(Board_test tests/BoardTest.cpp)
-
 target_link_libraries(Board_test 
                       Board_lib
                       gtest_main)
@@ -65,5 +67,12 @@ target_link_libraries(RandomBoardGenerator_test
                       RandomBoardGenerator_lib
                       gtest_main)
 
+add_executable(PlayerInput_test tests/PlayerInputTest.cpp)
+target_link_libraries(PlayerInput_test
+                      PlayerInput_lib
+                      Board_lib
+                      gtest_main)
+
 gtest_discover_tests(Board_test WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/tests)
 gtest_discover_tests(RandomBoardGenerator_test WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/tests)
+gtest_discover_tests(PlayerInput_test WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/tests)

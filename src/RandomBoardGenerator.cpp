@@ -23,12 +23,12 @@ Result<u_ptr<Board>> RandomBoardGenerator::generateBoard(int rows, int columns) 
     u_ptr<BoardData> boardData(new BoardData(rows));
 
     for (int i = 0; i < rows; i++) {
-        std::vector<Cell> row(columns, Cell::NOTHING);
+        std::vector<Cell> row(columns, Cell::FILLED);
 
         // Fill in each column according to RNG
         for (Cell &cell : row) {
             if (m_rng() < m_probOfFilled) {
-                cell = Cell::FILLED;
+                cell = Cell::ELIMINATED;
             }
         }
 

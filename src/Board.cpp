@@ -11,7 +11,15 @@ Board::Board(u_ptr<BoardData> b) {
     m_cols = (*m_board)[0].size();
 }
 
-bool Board::fill(const FillDirection& d, const Point& start, const Point& end, const Cell& type) {
+Board::Board(int numRows, int numCols) {
+    m_rows = numRows;
+    m_cols = numCols;
+
+    const std::vector<Cell> emptyRow = std::vector<Cell>(m_cols, Cell::DEFAULT);
+    m_board = u_ptr<BoardData>(new BoardData(m_rows, emptyRow));
+}
+
+bool Board::fill(const Point& start, const Point& end, const Cell& type) {
     int startRow = start.first;
     int startCol = start.second;
     int endRow = end.first;
@@ -25,6 +33,25 @@ bool Board::fill(const FillDirection& d, const Point& start, const Point& end, c
         return false;
     }
 
+    FillDirection d;
+    if (startRow == endRow) {
+        if (startCol == endCol) {
+            d = FillDirection::CELL;
+        }
+
+        else {
+            d = FillDirection::ROW;
+        }
+    }
+
+    else if (startCol == endCol) {
+        d = FillDirection::COLUMN;
+    }
+
+    else {
+        return false;
+    }
+
     switch(d) {
     case FillDirection::ROW:
         if (startRow != endRow) {
@@ -35,7 +62,7 @@ bool Board::fill(const FillDirection& d, const Point& start, const Point& end, c
             Cell* currentCell = &((*m_board)[startRow][i]);
 
             // If the current cell is empty or holds the TEST cell, replace the characters with the new value.
-            if (*currentCell == Cell::EMPTY || *currentCell == Cell::TEST) {
+            if (*currentCell == Cell::DEFAULT || *currentCell == Cell::TEST) {
                 *currentCell = type;
             }
         }
@@ -51,7 +78,7 @@ bool Board::fill(const FillDirection& d, const Point& start, const Point& end, c
             Cell* currentCell = &((*m_board)[i][startCol]);
 
             // If the current cell is empty or holds the TEST cell, replace the characters with the new value.
-            if (*currentCell == Cell::EMPTY || *currentCell == Cell::TEST) {
+            if (*currentCell == Cell::DEFAULT || *currentCell == Cell::TEST) {
                 *currentCell = type;
             }
         }
