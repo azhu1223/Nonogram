@@ -5,11 +5,13 @@
 #include <istream>
 #include <string>
 #include <unordered_map>
+#include <iostream>
+#include <sstream>
 
 PlayerInput::PlayerInput(std::istream& cin, std::ostream& cout) : m_cin(cin), m_cout(cout) {}
 
-u_ptr<std::unordered_map<Setting, std::string>> PlayerInput::getGameInitializationSettings() {
-    u_ptr<std::unordered_map<Setting, std::string>> settings(new std::unordered_map<Setting, std::string>());
+u_ptr<Settings> PlayerInput::getGameInitializationSettings() {
+    u_ptr<Settings> settings(new Settings());
 
     bool keepAsking = true;
     while (keepAsking) {
@@ -51,6 +53,115 @@ u_ptr<std::unordered_map<Setting, std::string>> PlayerInput::getGameInitializati
     }
 
     return settings;
+}
+
+Move PlayerInput::getMove(const Board& board) {
+    bool keepAsking = true;
+    std::string actionString;
+    while (keepAsking) {
+        m_cout << "What action would you like to perform? (f)ill, (e)liminate, (t)est.\n";
+
+        std::getline(m_cin, actionString);
+
+        if (actionString.size() != 1 || actionString.find_first_not_of("fet") != std::string::npos) {
+            m_cout << "You must choose an action from the options (f), (e), or (t).\n";
+        }
+
+        else {
+            keepAsking = false;
+        }
+    }
+
+    int numRows = board.getNumRows();
+    int numCols = board.getNumColumns();
+
+    keepAsking = true;
+    int firstX;
+    int firstY;
+
+    while (keepAsking) {
+        m_cout << "Where would you like to start from? Provide a coordinate where the values are deliminated by a space.\n";
+
+        std::string coordinateString;
+        std::getline(m_cin, coordinateString);
+        
+        Result<Point> pointCoversionResult = convertStringToPoint(coordinateString);
+        if (pointCoversionResult.second) {
+            firstX = pointCoversionResult.first.first;
+            firstY = pointCoversionResult.first.second;
+
+            if (firstX < numRows && firstY < numCols) {
+                keepAsking = false;
+            }
+
+            else {
+                m_cout << "Coordinates must be within the board boundaries.\n";
+            }
+        }
+    }
+
+    keepAsking = true;
+    int secondX;
+    int secondY;
+
+    while (keepAsking) {
+        m_cout << "Where would you like to end? Coordinate must be vertically or horizontally in line with the previous point.\n";
+
+        std::string coordinateString;
+        std::getline(m_cin, coordinateString);
+        
+        Result<Point> pointCoversionResult = convertStringToPoint(coordinateString);
+        if (pointCoversionResult.second) {
+            secondX = pointCoversionResult.first.first;
+            secondY = pointCoversionResult.first.second;
+
+            if (secondX < numRows && secondY < numCols) {
+
+                if (firstX == secondX || firstY == secondY) {
+                    keepAsking = false;
+                }
+
+                else {
+                    m_cout << "The second coordinate must be vertically or horizontally aligned with the first point.\n";
+                }
+            }
+
+            else {
+                m_cout << "Coordinates must be within the board boundaries.\n";
+            }
+        }
+    }
+
+    return {charToAction(actionString[0]), {{firstX, firstY}, {secondX, secondY}}};
+}
+
+Result<Point> PlayerInput::convertStringToPoint(const std::string& s) {
+    std::stringstream deliminationStream(s);
+
+    std::string xString;
+    std::string yString;
+    std::getline(deliminationStream, xString, ' ');
+    std::getline(deliminationStream, yString, ' ');
+
+    if (xString.empty() || yString.empty()) {
+        m_cout << "Coordinate must be in the form \"X Y\".\n";
+        return {{0, 0}, false};
+    }
+
+    if (!(xString.find_first_not_of("1234567890") == std::string::npos && 
+        yString.find_first_not_of("1234567890") == std::string::npos)) {
+        
+        m_cout << "Coordinates must be positive integral numbers.\n";
+        return {{0, 0}, false};
+    }
+
+    int x;
+    int y;
+
+    x = std::stoi(xString);
+    y = std::stoi(yString);
+
+    return {{x, y}, true};
 }
 
 bool PlayerInput::validIntegralAnswer(std::string s) {
@@ -110,7 +221,7 @@ bool PlayerInput::validProbAnswer(std::string s) {
                 }
 
                 // Trap just to filter out numbers greater than 1 using digits other than 1 and 0.
-                else if (wholeNumber.find_first_not_of("01")) {
+                else if (wholeNumber.find_first_not_of("01") != std::string::npos) {
 
                 }
 
@@ -132,4 +243,27 @@ bool PlayerInput::validProbAnswer(std::string s) {
     }
 
     return result;
+}
+
+Action PlayerInput::charToAction(char c) {
+    Action a;
+
+    switch(c) {
+    case 'f':
+        a = Action::FILL;
+        break;
+    case 'e':
+        a = Action::ELIMINATE;
+        break;
+    case 't':
+        a = Action::TEST;
+        break;
+    case 'q':
+        a = Action::QUIT;
+        break;
+    default:
+        a = Action::ERROR;
+    }
+
+    return a;
 }

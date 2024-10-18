@@ -41,7 +41,7 @@ TEST_F(RandomBoardGeneratorTest, GenerateEmptyBoardProbZero) {
         std::vector<Cell> row = board->getRow(i);
 
         for (Cell c : row) {
-            EXPECT_EQ(c, Cell::NOTHING);
+            EXPECT_EQ(c, Cell::FILLED);
         }
     }
 }
@@ -59,7 +59,7 @@ TEST_F(RandomBoardGeneratorTest, GenerateEmptyBoardRngZero) {
         std::vector<Cell> row = board->getRow(i);
 
         for (Cell c : row) {
-            EXPECT_EQ(c, Cell::FILLED);
+            EXPECT_EQ(c, Cell::ELIMINATED);
         }
     }
 }
@@ -76,7 +76,7 @@ TEST_F(RandomBoardGeneratorTest, GenerateFullBoardProbOne) {
         std::vector<Cell> row = board->getRow(i);
 
         for (Cell c : row) {
-            EXPECT_EQ(c, Cell::FILLED);
+            EXPECT_EQ(c, Cell::ELIMINATED);
         }
     }
 }
@@ -94,7 +94,7 @@ TEST_F(RandomBoardGeneratorTest, GenerateFullBoardRngOne) {
         std::vector<Cell> row = board->getRow(i);
 
         for (Cell c : row) {
-            EXPECT_EQ(c, Cell::NOTHING);
+            EXPECT_EQ(c, Cell::FILLED);
         }
     }
 }

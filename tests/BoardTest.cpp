@@ -12,9 +12,9 @@ protected:
 
     void SetUp() override {
         boardVector = u_ptr<std::vector<std::vector<Cell>>>(new std::vector<std::vector<Cell>>);
-        boardVector->emplace_back(3, Cell::EMPTY);
-        boardVector->emplace_back(3, Cell::EMPTY);
-        boardVector->emplace_back(3, Cell::EMPTY);
+        boardVector->emplace_back(3, Cell::DEFAULT);
+        boardVector->emplace_back(3, Cell::DEFAULT);
+        boardVector->emplace_back(3, Cell::DEFAULT);
     }
 };
 
@@ -27,7 +27,7 @@ TEST_F(BoardTest, ConstructorTest) {
 TEST_F(BoardTest, FillRowTest) {
     Board b(std::move(boardVector));
 
-    EXPECT_TRUE(b.fill(FillDirection::ROW, {0, 0}, {0, 2}, Cell::FILLED));
+    EXPECT_TRUE(b.fill({0, 0}, {0, 2}, Cell::FILLED));
 
     std::vector<Cell> boardRow = b.getRow(0);
 
@@ -39,7 +39,7 @@ TEST_F(BoardTest, FillRowTest) {
 TEST_F(BoardTest, FillColumnTest) {
     Board b(std::move(boardVector));
 
-    EXPECT_TRUE(b.fill(FillDirection::COLUMN, {0, 0}, {2, 0}, Cell::FILLED));
+    EXPECT_TRUE(b.fill({0, 0}, {2, 0}, Cell::FILLED));
 
     std::vector<Cell> boardColumn = b.getColumn(0);
 
@@ -51,7 +51,7 @@ TEST_F(BoardTest, FillColumnTest) {
 TEST_F(BoardTest, FillCellTest) {
     Board b(std::move(boardVector));
 
-    EXPECT_TRUE(b.fill(FillDirection::COLUMN, {0, 0}, {0, 0}, Cell::FILLED));
+    EXPECT_TRUE(b.fill({0, 0}, {0, 0}, Cell::FILLED));
 
     std::vector<Cell> boardRow = b.getRow(0);
 
