@@ -22,7 +22,7 @@ u_ptr<Settings> PlayerInput::getGameInitializationSettings() {
 
         if (validIntegralAnswer(rowString)) {
             keepAsking = false;
-            (*settings)[Setting::ROW_SIZE] = rowString;
+            (*settings)[GameSetting::ROW_SIZE] = rowString;
         }
     }
 
@@ -35,7 +35,7 @@ u_ptr<Settings> PlayerInput::getGameInitializationSettings() {
 
         if (validIntegralAnswer(colString)) {
             keepAsking = false;
-            (*settings)[Setting::COLUMN_SIZE] = colString;
+            (*settings)[GameSetting::COLUMN_SIZE] = colString;
         }
     }
 
@@ -48,7 +48,7 @@ u_ptr<Settings> PlayerInput::getGameInitializationSettings() {
 
         if (validProbAnswer(probString)) {
             keepAsking = false;
-            (*settings)[Setting::FILL_PROBABILITY] = probString;
+            (*settings)[GameSetting::FILL_PROBABILITY] = probString;
         }
     }
 

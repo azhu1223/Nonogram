@@ -26,9 +26,9 @@ TEST_F(PlayerInputTest, SuccessfulSettings) {
 
     u_ptr<Settings> settings = playerInput.getGameInitializationSettings();
     
-    EXPECT_EQ((*settings)[Setting::ROW_SIZE], "6");
-    EXPECT_EQ((*settings)[Setting::COLUMN_SIZE], "7");
-    EXPECT_EQ((*settings)[Setting::FILL_PROBABILITY], "0.5");
+    EXPECT_EQ((*settings)[GameSetting::ROW_SIZE], "6");
+    EXPECT_EQ((*settings)[GameSetting::COLUMN_SIZE], "7");
+    EXPECT_EQ((*settings)[GameSetting::FILL_PROBABILITY], "0.5");
 
     std::string outputString;
     std::getline(cout, outputString);
@@ -44,9 +44,9 @@ TEST_F(PlayerInputTest, WrongRowSize) {
 
     u_ptr<Settings> settings = playerInput.getGameInitializationSettings();
     
-    EXPECT_EQ((*settings)[Setting::ROW_SIZE], "6");
-    EXPECT_EQ((*settings)[Setting::COLUMN_SIZE], "7");
-    EXPECT_EQ((*settings)[Setting::FILL_PROBABILITY], "0.5");
+    EXPECT_EQ((*settings)[GameSetting::ROW_SIZE], "6");
+    EXPECT_EQ((*settings)[GameSetting::COLUMN_SIZE], "7");
+    EXPECT_EQ((*settings)[GameSetting::FILL_PROBABILITY], "0.5");
 
     std::string outputString;
     std::getline(cout, outputString);
@@ -66,9 +66,9 @@ TEST_F(PlayerInputTest, WrongColumnSize) {
 
     u_ptr<Settings> settings = playerInput.getGameInitializationSettings();
     
-    EXPECT_EQ((*settings)[Setting::ROW_SIZE], "6");
-    EXPECT_EQ((*settings)[Setting::COLUMN_SIZE], "7");
-    EXPECT_EQ((*settings)[Setting::FILL_PROBABILITY], "0.5");
+    EXPECT_EQ((*settings)[GameSetting::ROW_SIZE], "6");
+    EXPECT_EQ((*settings)[GameSetting::COLUMN_SIZE], "7");
+    EXPECT_EQ((*settings)[GameSetting::FILL_PROBABILITY], "0.5");
 
     std::string outputString;
     std::getline(cout, outputString);
@@ -88,9 +88,9 @@ TEST_F(PlayerInputTest, WrongProbabilityGreaterThanOne) {
 
     u_ptr<Settings> settings = playerInput.getGameInitializationSettings();
     
-    EXPECT_EQ((*settings)[Setting::ROW_SIZE], "6");
-    EXPECT_EQ((*settings)[Setting::COLUMN_SIZE], "7");
-    EXPECT_EQ((*settings)[Setting::FILL_PROBABILITY], "0.5");
+    EXPECT_EQ((*settings)[GameSetting::ROW_SIZE], "6");
+    EXPECT_EQ((*settings)[GameSetting::COLUMN_SIZE], "7");
+    EXPECT_EQ((*settings)[GameSetting::FILL_PROBABILITY], "0.5");
 
     std::string outputString;
     std::getline(cout, outputString);

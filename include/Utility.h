@@ -34,7 +34,7 @@ enum class FillDirection {
     CELL
 };
 
-enum class Setting {
+enum class GameSetting {
     ROW_SIZE,
     COLUMN_SIZE,
     FILL_PROBABILITY
@@ -44,7 +44,7 @@ using Point = std::pair<int, int>;
 
 using BoardData = std::vector<std::vector<Cell>>;
 
-using Settings = std::unordered_map<Setting, std::string>;
+using Settings = std::unordered_map<GameSetting, std::string>;
 
 using Move = std::pair<Action, std::pair<Point, Point>>;
 
