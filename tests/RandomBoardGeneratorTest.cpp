@@ -9,7 +9,7 @@
 
 class RandomBoardGeneratorTest : public ::testing::Test {
 protected:
-    u_ptr<Board> board;
+    s_ptr<Board> board;
     double probOfFilled;
     int rows;
     int cols;
@@ -32,16 +32,16 @@ protected:
 TEST_F(RandomBoardGeneratorTest, GenerateEmptyBoardProbZero) {
     RandomBoardGenerator boardGenerator(0, rng);
 
-    Result<u_ptr<Board>> generationResult = boardGenerator.generateBoard(rows, cols);
+    Result<s_ptr<Board>> generationResult = boardGenerator.generateBoard(rows, cols);
     EXPECT_TRUE(generationResult.second);
 
-    board = std::move(generationResult.first);
+    board = generationResult.first;
 
     for (int i = 0; i < rows; i++) {
         std::vector<Cell> row = board->getRow(i);
 
         for (Cell c : row) {
-            EXPECT_EQ(c, Cell::FILLED);
+            EXPECT_EQ(c, Cell::DEFAULT);
         }
     }
 }
@@ -50,45 +50,10 @@ TEST_F(RandomBoardGeneratorTest, GenerateEmptyBoardProbZero) {
 TEST_F(RandomBoardGeneratorTest, GenerateEmptyBoardRngZero) {
     RandomBoardGenerator boardGenerator(probOfFilled, []() -> double {return 0.0;});
 
-    Result<u_ptr<Board>> generationResult = boardGenerator.generateBoard(rows, cols);
+    Result<s_ptr<Board>> generationResult = boardGenerator.generateBoard(rows, cols);
     EXPECT_TRUE(generationResult.second);
 
-    board = std::move(generationResult.first);
-
-    for (int i = 0; i < rows; i++) {
-        std::vector<Cell> row = board->getRow(i);
-
-        for (Cell c : row) {
-            EXPECT_EQ(c, Cell::ELIMINATED);
-        }
-    }
-}
-
-TEST_F(RandomBoardGeneratorTest, GenerateFullBoardProbOne) {
-    RandomBoardGenerator boardGenerator(1, rng);
-
-    Result<u_ptr<Board>> generationResult = boardGenerator.generateBoard(rows, cols);
-    EXPECT_TRUE(generationResult.second);
-
-    board = std::move(generationResult.first);
-
-    for (int i = 0; i < rows; i++) {
-        std::vector<Cell> row = board->getRow(i);
-
-        for (Cell c : row) {
-            EXPECT_EQ(c, Cell::ELIMINATED);
-        }
-    }
-}
-
-// RNG being 1 generates an empty board.
-TEST_F(RandomBoardGeneratorTest, GenerateFullBoardRngOne) {
-    RandomBoardGenerator boardGenerator(probOfFilled, []() -> double {return 1.0;});
-
-    Result<u_ptr<Board>> generationResult = boardGenerator.generateBoard(rows, cols);
-    EXPECT_TRUE(generationResult.second);
-
-    board = std::move(generationResult.first);
+    board = generationResult.first;
 
     for (int i = 0; i < rows; i++) {
         std::vector<Cell> row = board->getRow(i);
@@ -99,9 +64,44 @@ TEST_F(RandomBoardGeneratorTest, GenerateFullBoardRngOne) {
     }
 }
 
+TEST_F(RandomBoardGeneratorTest, GenerateFullBoardProbOne) {
+    RandomBoardGenerator boardGenerator(1, rng);
+
+    Result<s_ptr<Board>> generationResult = boardGenerator.generateBoard(rows, cols);
+    EXPECT_TRUE(generationResult.second);
+
+    board = generationResult.first;
+
+    for (int i = 0; i < rows; i++) {
+        std::vector<Cell> row = board->getRow(i);
+
+        for (Cell c : row) {
+            EXPECT_EQ(c, Cell::FILLED);
+        }
+    }
+}
+
+// RNG being 1 generates an empty board.
+TEST_F(RandomBoardGeneratorTest, GenerateFullBoardRngOne) {
+    RandomBoardGenerator boardGenerator(probOfFilled, []() -> double {return 1.0;});
+
+    Result<s_ptr<Board>> generationResult = boardGenerator.generateBoard(rows, cols);
+    EXPECT_TRUE(generationResult.second);
+
+    board = generationResult.first;
+
+    for (int i = 0; i < rows; i++) {
+        std::vector<Cell> row = board->getRow(i);
+
+        for (Cell c : row) {
+            EXPECT_EQ(c, Cell::DEFAULT);
+        }
+    }
+}
+
 TEST_F(RandomBoardGeneratorTest, GenerateRandomBoard) {
     RandomBoardGenerator boardGenerator(probOfFilled, rng);
 
-    Result<u_ptr<Board>> generationResult = boardGenerator.generateBoard(rows, cols);
+    Result<s_ptr<Board>> generationResult = boardGenerator.generateBoard(rows, cols);
     EXPECT_TRUE(generationResult.second);
 }

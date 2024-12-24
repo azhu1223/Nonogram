@@ -16,7 +16,7 @@ Result<s_ptr<Board>> FakeBoardGenerator::generateBoard(int rows, int columns) {
     for (int i = 0; i < rows; i++) {
         std::vector<Cell> row;
         for (int j = 0; j < columns; j++) {
-            row.push_back(i == j ? Cell::FILLED : Cell::ELIMINATED);
+            row.push_back(i == j ? Cell::DEFAULT : Cell::FILLED);
         }
 
         boardData->push_back(row);

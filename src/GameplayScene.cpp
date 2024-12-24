@@ -7,11 +7,11 @@
 #include <sstream>
 #include <vector>
 
-GameplayScene::GameplayScene(std::ostream& cout, s_ptr<Board> board, const std::vector<std::string>& hints) : Scene(cout), m_board(board), m_hints(hints),
+GameplayScene::GameplayScene(std::ostream& cout, s_ptr<Board> board, const Hints& hints) : Scene(cout), m_board(board), m_hints(generateHints(hints)), 
     m_horBorder(1 + 2 * (m_board->getNumRows()), '-'), m_boardNumRow(m_board->getNumRows()) {}
 
 void GameplayScene::display() {
-    getCout() << generateBoardDisplay() << generateHintDisplay();
+    getCout() << generateBoardDisplay() << m_hints;
 }
 
 std::string GameplayScene::generateBoardDisplay() {
@@ -33,6 +33,42 @@ std::string GameplayScene::generateBoardDisplay() {
     return boardStringStream.str();
 }
 
-std::string GameplayScene::generateHintDisplay() {
+std::string GameplayScene::generateHints(const Hints& hints) {
+    const std::vector<std::vector<int>> row_hints = hints.first;
+    const std::vector<std::vector<int>> col_hints = hints.second;
 
+    std::stringstream hintStringStream;
+    hintStringStream << "Row Hints:\n";
+
+    int nRows = row_hints.size();
+    for (int i = 0; i < nRows; i++) {
+        hintStringStream << i << ": ";
+
+        const std::vector<int> currentHintRow = row_hints[i];
+        int nHints = currentHintRow.size();
+        for (int j = 0; j < nHints; j++) {
+            hintStringStream << currentHintRow[j] << ' ';
+        }
+
+        hintStringStream << '\n';
+    }
+
+    hintStringStream << "\nCol Hints:\n";
+
+    int nCols = col_hints.size();
+    for (int i = 0; i < nCols; i++) {
+        hintStringStream << i << ": ";
+
+        const std::vector<int> currentHintCol = col_hints[i];
+        int nHints = currentHintCol.size();
+        for (int j = 0; j < nHints; j++) {
+            hintStringStream << currentHintCol[j] << ' ';
+        }
+
+        hintStringStream << '\n';
+    }
+
+    hintStringStream << '\n';
+
+    return hintStringStream.str();
 }
