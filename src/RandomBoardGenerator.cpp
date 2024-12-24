@@ -14,7 +14,7 @@ RandomBoardGenerator::RandomBoardGenerator(double probOfFilled, std::function<do
 }
 
 // Returns a result object that tells whether the returned pointer is valid or not.
-Result<u_ptr<Board>> RandomBoardGenerator::generateBoard(int rows, int columns) {
+Result<s_ptr<Board>> RandomBoardGenerator::generateBoard(int rows, int columns) {
     if (rows <= 0 || columns <= 0 || m_probOfFilled < 0 || m_probOfFilled > 1) {
         return {nullptr, false};
     }
@@ -35,5 +35,5 @@ Result<u_ptr<Board>> RandomBoardGenerator::generateBoard(int rows, int columns) 
         (*boardData)[i].swap(row);
     }
 
-    return {u_ptr<Board>(new Board(std::move(boardData))), true};
+    return {s_ptr<Board>(new Board(std::move(boardData))), true};
 }

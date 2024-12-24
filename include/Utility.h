@@ -15,7 +15,7 @@ Holds constants and other useful constructs used throughout the program.
 // is tentatively filled for testing.
 enum class Cell {
     FILLED = '0',
-    DEFAULT = '.',
+    DEFAULT = ' ',
     ELIMINATED = 'x',
     TEST = '?'
 };
@@ -53,5 +53,8 @@ using Result = std::pair<T, bool>;
 
 template <typename T>
 using u_ptr = std::unique_ptr<T>;
+
+template <typename T>
+using s_ptr = std::shared_ptr<T>;
 
 #endif

@@ -13,8 +13,8 @@ public:
 
     // Returns if the provided move is valid or not. Start and end must define a horizontal or vertical line.
     bool fill(const Point& start, const Point& end, const Cell& type);
-    std::vector<Cell> getRow(int row) const;
-    std::vector<Cell> getColumn(int column) const;
+    const std::vector<Cell>& getRow(int row) const;
+    const std::vector<Cell>& getColumn(int column) const;
 
     int getNumRows() const;
     int getNumColumns() const;
@@ -25,12 +25,12 @@ private:
 };
 
 inline
-std::vector<Cell> Board::getRow(int row) const {
+const std::vector<Cell>& Board::getRow(int row) const {
     return (*m_board)[row];
 }
 
 inline
-std::vector<Cell> Board::getColumn(int column) const {
+const std::vector<Cell>& Board::getColumn(int column) const {
     std::vector<Cell> col;
 
     for (auto row : *m_board) {

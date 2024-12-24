@@ -18,12 +18,6 @@ protected:
     }
 };
 
-TEST_F(BoardTest, ConstructorTest) {
-    Board b(std::move(boardVector));
-
-    //EXPECT_EQ(b.getVector(), &boardVector);
-}
-
 TEST_F(BoardTest, FillRowTest) {
     Board b(std::move(boardVector));
 
