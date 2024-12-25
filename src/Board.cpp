@@ -5,16 +5,9 @@
 #include <memory>
 #include <utility>
 
-Board::Board(u_ptr<BoardData> b) {
-    m_board = std::move(b);
-    m_rows = m_board->size();
-    m_cols = (*m_board)[0].size();
-}
+Board::Board(u_ptr<BoardData> b) : m_board(std::move(b)), m_rows(m_board->size()), m_cols((*m_board)[0].size()), m_hints(generateHints()) {}
 
-Board::Board(int numRows, int numCols) {
-    m_rows = numRows;
-    m_cols = numCols;
-
+Board::Board(int numRows, int numCols) : m_rows(numRows), m_cols(numCols) {
     const std::vector<Cell> emptyRow = std::vector<Cell>(m_cols, Cell::DEFAULT);
     m_board = u_ptr<BoardData>(new BoardData(m_rows, emptyRow));
 }
@@ -59,11 +52,11 @@ bool Board::fill(const Point& start, const Point& end, const Cell& type) {
         }
 
         for (int i = startCol; i <= endCol; i++) {
-            Cell* currentCell = &((*m_board)[startRow][i]);
+            Cell& currentCell = (*m_board)[startRow][i];
 
             // If the current cell is empty or holds the TEST cell, replace the characters with the new value.
-            if (*currentCell == Cell::DEFAULT || *currentCell == Cell::TEST) {
-                *currentCell = type;
+            if (currentCell == Cell::DEFAULT || currentCell == Cell::TEST) {
+                currentCell = type;
             }
         }
 
@@ -75,11 +68,11 @@ bool Board::fill(const Point& start, const Point& end, const Cell& type) {
         }
 
         for (int i = startRow; i <= endRow; i++) {
-            Cell* currentCell = &((*m_board)[i][startCol]);
+            Cell& currentCell = (*m_board)[i][startCol];
 
             // If the current cell is empty or holds the TEST cell, replace the characters with the new value.
-            if (*currentCell == Cell::DEFAULT || *currentCell == Cell::TEST) {
-                *currentCell = type;
+            if (currentCell == Cell::DEFAULT || currentCell == Cell::TEST) {
+                currentCell = type;
             }
         }
 
@@ -96,4 +89,38 @@ bool Board::fill(const Point& start, const Point& end, const Cell& type) {
     }
 
     return true;
+}
+
+const Hints Board::generateHints() const {
+    std::vector<std::vector<int>> row_hints(m_rows);
+    std::vector<std::vector<int>> col_hints(m_cols);
+
+    for (int i = 0; i < m_rows; i++) {
+        int row_tally = 0;
+        std::vector<int> col_tallies(m_cols);
+
+        const std::vector<Cell>& currentRow = (*m_board)[i];
+        for (int j = 0; j < m_cols; j++) {
+            const Cell& currentCell = currentRow[j];
+
+            if (currentCell == Cell::DEFAULT) {
+                if (row_tally > 0) {
+                    row_hints[i].push_back(row_tally);
+                    row_tally = 0;
+                }
+
+                if (col_tallies[j] > 0) {
+                    col_hints[j].push_back(col_tallies[j]);
+                    col_tallies[j] = 0;
+                }
+            }
+
+            else {
+                row_tally++;
+                col_tallies[j]++;
+            }
+        }
+    }
+
+    return {row_hints, col_hints};
 }

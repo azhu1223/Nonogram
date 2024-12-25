@@ -6,8 +6,8 @@
 #include <functional>
 
 // Returns a board with the diagonal filled for testing purposes.
-Result<u_ptr<Board>> FakeBoardGenerator::generateBoard(int rows, int columns, double probOfFilled, std::function<double()> rng) {
-    if (rows <= 0 || columns <= 0 || probOfFilled < 0 || probOfFilled > 1) {
+Result<s_ptr<Board>> FakeBoardGenerator::generateBoard(int rows, int columns) {
+    if (rows <= 0 || columns <= 0) {
         return {nullptr, false};
     }
 
@@ -16,7 +16,7 @@ Result<u_ptr<Board>> FakeBoardGenerator::generateBoard(int rows, int columns, do
     for (int i = 0; i < rows; i++) {
         std::vector<Cell> row;
         for (int j = 0; j < columns; j++) {
-            row.push_back(i == j ? Cell::FILLED : Cell::ELIMINATED);
+            row.push_back(i == j ? Cell::DEFAULT : Cell::FILLED);
         }
 
         boardData->push_back(row);

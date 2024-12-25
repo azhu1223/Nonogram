@@ -9,13 +9,14 @@ Holds constants and other useful constructs used throughout the program.
 #include <utility>
 #include <memory>
 #include <unordered_map>
+#include <string>
 
 // Cell::REVEALED represents a REVEALED in cell. Cell::DEFAULT represents a cell that has not been modified yet. /
 // Cell::ELIMINATED represents a cell that has been determined to be empty. Cell::TEST represents a cell that /
 // is tentatively filled for testing.
 enum class Cell {
     FILLED = '0',
-    DEFAULT = '.',
+    DEFAULT = ' ',
     ELIMINATED = 'x',
     TEST = '?'
 };
@@ -48,10 +49,15 @@ using Settings = std::unordered_map<GameSetting, std::string>;
 
 using Move = std::pair<Action, std::pair<Point, Point>>;
 
+using Hints = std::pair<std::vector<std::vector<int>>, std::vector<std::vector<int>>>;
+
 template <typename T>
 using Result = std::pair<T, bool>;
 
 template <typename T>
 using u_ptr = std::unique_ptr<T>;
+
+template <typename T>
+using s_ptr = std::shared_ptr<T>;
 
 #endif

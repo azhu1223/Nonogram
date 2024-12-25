@@ -8,32 +8,34 @@
 
 class BoardTest : public ::testing::Test {
 protected:
-    u_ptr<std::vector<std::vector<Cell>>> boardVector;
+    u_ptr<BoardData> boardVector;
 
     void SetUp() override {
-        boardVector = u_ptr<std::vector<std::vector<Cell>>>(new std::vector<std::vector<Cell>>);
-        boardVector->emplace_back(3, Cell::DEFAULT);
-        boardVector->emplace_back(3, Cell::DEFAULT);
-        boardVector->emplace_back(3, Cell::DEFAULT);
+        std::cerr << "Wtf is going on\n";
+        std::vector<Cell> emptyRow(3, Cell::DEFAULT);
+        boardVector = u_ptr<BoardData>(new BoardData(3, emptyRow));
+        std::cout << "Wtf is going on 2\n";
     }
 };
 
-TEST_F(BoardTest, ConstructorTest) {
-    Board b(std::move(boardVector));
-
-    //EXPECT_EQ(b.getVector(), &boardVector);
-}
-
 TEST_F(BoardTest, FillRowTest) {
+    std::cerr << "Constructing Board\n";
+
     Board b(std::move(boardVector));
+
+    std::cerr << "Testing fill\n";
 
     EXPECT_TRUE(b.fill({0, 0}, {0, 2}, Cell::FILLED));
 
-    std::vector<Cell> boardRow = b.getRow(0);
+    std::cerr << "Ensuring fill was correct\n";
+
+    const std::vector<Cell> boardRow = b.getRow(0);
 
     for (int i = 0; i < 3; i++) {
         EXPECT_EQ(boardRow[i], Cell::FILLED);
     }
+
+    std::cerr << "Finished test\n";
 }
 
 TEST_F(BoardTest, FillColumnTest) {
