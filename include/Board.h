@@ -20,13 +20,12 @@ public:
     int getNumRows() const;
     int getNumColumns() const;
 private:
+    const Hints generateHints() const;
+    
+    u_ptr<BoardData> m_board;
     int m_cols;
     int m_rows;
-    u_ptr<BoardData> m_board;
-
     const Hints m_hints;
-
-    const Hints generateHints() const;
 };
 
 inline

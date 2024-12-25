@@ -5,16 +5,9 @@
 #include <memory>
 #include <utility>
 
-Board::Board(u_ptr<BoardData> b) : m_hints(generateHints()) {
-    m_board = std::move(b);
-    m_rows = m_board->size();
-    m_cols = (*m_board)[0].size();
-}
+Board::Board(u_ptr<BoardData> b) : m_board(std::move(b)), m_rows(m_board->size()), m_cols((*m_board)[0].size()), m_hints(generateHints()) {}
 
-Board::Board(int numRows, int numCols) {
-    m_rows = numRows;
-    m_cols = numCols;
-
+Board::Board(int numRows, int numCols) : m_rows(numRows), m_cols(numCols) {
     const std::vector<Cell> emptyRow = std::vector<Cell>(m_cols, Cell::DEFAULT);
     m_board = u_ptr<BoardData>(new BoardData(m_rows, emptyRow));
 }
