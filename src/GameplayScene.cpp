@@ -42,12 +42,12 @@ std::string GameplayScene::generateHints(const Hints& hints) {
 
     int nRows = row_hints.size();
     for (int i = 0; i < nRows; i++) {
-        hintStringStream << i << ": ";
+        hintStringStream << i << ':';
 
         const std::vector<int> currentHintRow = row_hints[i];
         int nHints = currentHintRow.size();
         for (int j = 0; j < nHints; j++) {
-            hintStringStream << currentHintRow[j] << ' ';
+            hintStringStream << ' ' << currentHintRow[j];
         }
 
         hintStringStream << '\n';
