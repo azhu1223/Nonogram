@@ -8,10 +8,10 @@
 
 class BoardTest : public ::testing::Test {
 protected:
-    u_ptr<std::vector<std::vector<Cell>>> boardVector;
+    u_ptr<BoardData> boardVector;
 
     void SetUp() override {
-        boardVector = u_ptr<std::vector<std::vector<Cell>>>(new std::vector<std::vector<Cell>>);
+        boardVector = u_ptr<BoardData>(new BoardData);
         boardVector->emplace_back(3, Cell::DEFAULT);
         boardVector->emplace_back(3, Cell::DEFAULT);
         boardVector->emplace_back(3, Cell::DEFAULT);
@@ -23,7 +23,7 @@ TEST_F(BoardTest, FillRowTest) {
 
     EXPECT_TRUE(b.fill({0, 0}, {0, 2}, Cell::FILLED));
 
-    std::vector<Cell> boardRow = b.getRow(0);
+    const std::vector<Cell> boardRow = b.getRow(0);
 
     for (int i = 0; i < 3; i++) {
         EXPECT_EQ(boardRow[i], Cell::FILLED);

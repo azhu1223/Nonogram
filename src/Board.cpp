@@ -59,11 +59,11 @@ bool Board::fill(const Point& start, const Point& end, const Cell& type) {
         }
 
         for (int i = startCol; i <= endCol; i++) {
-            Cell* currentCell = &((*m_board)[startRow][i]);
+            Cell& currentCell = (*m_board)[startRow][i];
 
             // If the current cell is empty or holds the TEST cell, replace the characters with the new value.
-            if (*currentCell == Cell::DEFAULT || *currentCell == Cell::TEST) {
-                *currentCell = type;
+            if (currentCell == Cell::DEFAULT || currentCell == Cell::TEST) {
+                currentCell = type;
             }
         }
 
@@ -75,11 +75,11 @@ bool Board::fill(const Point& start, const Point& end, const Cell& type) {
         }
 
         for (int i = startRow; i <= endRow; i++) {
-            Cell* currentCell = &((*m_board)[i][startCol]);
+            Cell& currentCell = (*m_board)[i][startCol];
 
             // If the current cell is empty or holds the TEST cell, replace the characters with the new value.
-            if (*currentCell == Cell::DEFAULT || *currentCell == Cell::TEST) {
-                *currentCell = type;
+            if (currentCell == Cell::DEFAULT || currentCell == Cell::TEST) {
+                currentCell = type;
             }
         }
 
