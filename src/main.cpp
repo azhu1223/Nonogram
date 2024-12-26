@@ -5,7 +5,7 @@
 int main() {
     bool keepPlaying = true;
     while (keepPlaying) {
-        Game game;
+        Game game(std::cin, std::cout);
 
         keepPlaying = false;
     }
