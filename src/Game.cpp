@@ -3,6 +3,7 @@
 #include "PlayerInput.h"
 #include "RandomBoardGenerator.h"
 #include "Board.h"
+#include "GameplayScene.h"
 
 #include <istream>
 #include <ostream>

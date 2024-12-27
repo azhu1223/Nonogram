@@ -46,9 +46,6 @@ add_library(RandomBoardGenerator_lib src/RandomBoardGenerator.cpp)
 add_library(GameplayScene_lib src/GameplayScene.cpp)
 add_library(RandomGameGenerator_lib src/RandomGameGenerator.cpp)
 
-target_link_libraries(Game_lib
-                    Board_lib)
-
 target_link_libraries(PlayerInput_lib
                       Board_lib)
 
@@ -61,9 +58,15 @@ target_link_libraries(GameplayScene_lib
 target_link_libraries(RandomGameGenerator_lib
                       Game_lib)
 
+target_link_libraries(Game_lib
+                      Board_lib
+                      RandomBoardGenerator_lib
+                      PlayerInput_lib)
+
 add_executable(nonogram src/main.cpp)
 target_link_libraries(nonogram
                     RandomGameGenerator_lib
+                    GameplayScene_lib
                     Game_lib)
 
 add_executable(Board_test tests/BoardTest.cpp)

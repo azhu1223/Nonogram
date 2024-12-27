@@ -108,7 +108,7 @@ TEST_F(PlayerInputTest, WrongProbabilityGreaterThanOne) {
 TEST_F(PlayerInputTest, ValidGetMoveTest) {
     cin << "f\n1 2\n1 4";
 
-    Move move = playerInput.getMove(board);
+    Move move = playerInput.getMove(board.getNumRows(), board.getNumColumns());
 
     EXPECT_EQ(move.first, Action::FILL);
     EXPECT_EQ(move.second.first, Point({1, 2}));
