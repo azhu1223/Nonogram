@@ -80,7 +80,7 @@ Move PlayerInput::getMove(int numRows, int numCols) const {
     Point endPoint;
 
     while (keepAsking) {
-        m_cout << "Where would you like to start from? Provide a coordinate where the values are deliminated by a space. Column Major order.\n";
+        m_cout << "Where would you like to start from? Provide a coordinate where the values are deliminated by a space. Column major order.\n";
 
         std::string coordinateString;
         std::getline(m_cin, coordinateString);
