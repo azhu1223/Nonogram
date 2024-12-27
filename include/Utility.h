@@ -41,6 +41,7 @@ enum class GameSetting {
     FILL_PROBABILITY
 };
 
+// Column major order; {x, y}
 using Point = std::pair<int, int>;
 
 using BoardData = std::vector<std::vector<Cell>>;
