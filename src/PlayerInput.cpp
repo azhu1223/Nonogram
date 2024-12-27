@@ -144,8 +144,8 @@ Result<Point> PlayerInput::convertStringToPoint(const std::string& s) const {
 
     std::string xString;
     std::string yString;
-    std::getline(deliminationStream, yString, ' ');
     std::getline(deliminationStream, xString, ' ');
+    std::getline(deliminationStream, yString, ' ');
 
     if (xString.empty() || yString.empty()) {
         m_cout << "Coordinate must be in the form \"X Y\".\n";
