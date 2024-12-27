@@ -56,6 +56,8 @@ bool Game::play() {
 
         m_gameplayBoard->fill(startEnd.first, startEnd.second, fillCellResult.first);
     }
+
+    return true;
 }
 
 Result<Cell> Game::actionToCell(const Action& a) const {
