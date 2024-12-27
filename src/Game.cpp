@@ -58,6 +58,8 @@ bool Game::play() {
         m_gameplayBoard->fill(startEnd.first, startEnd.second, fillCellResult.first);
     }
 
+    m_cout << "Congratulations! You finished the puzzle.\n" << m_gameplayScene->generateBoardDisplay();
+
     return true;
 }
 

@@ -15,9 +15,7 @@ int main() {
             // Handle game creation error
         }
 
-        gameResult.first->play();
-
-        keepPlaying = false;
+        keepPlaying = gameResult.first->play();
     }
 
     std::cout << "Exiting program.\n";

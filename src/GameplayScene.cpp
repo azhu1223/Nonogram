@@ -7,7 +7,7 @@
 #include <sstream>
 #include <vector>
 
-GameplayScene::GameplayScene(std::ostream& cout, s_ptr<Board> board, const Hints& hints) : Scene(cout), m_board(board), m_hints(generateHints(hints)), 
+GameplayScene::GameplayScene(std::ostream& cout, s_ptr<Board> board, const Hints& hints) : Scene(cout), m_board(board), m_hints(std::move(generateHints(hints))), 
     m_horBorder(1 + 2 * (m_board->getNumRows()), '-'), m_boardNumRow(m_board->getNumRows()) {}
 
 void GameplayScene::display() {
@@ -25,10 +25,8 @@ std::string GameplayScene::generateBoardDisplay() {
         for (Cell c : currentRow) {
             boardStringStream << (char) c << '|';
         }
-        boardStringStream << '\n';
+        boardStringStream << '\n' << m_horBorder << '\n';
     }
-
-    boardStringStream << m_horBorder << '\n';
 
     return boardStringStream.str();
 }

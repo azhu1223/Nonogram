@@ -95,10 +95,13 @@ const Hints Board::generateHints() const {
     std::vector<std::vector<int>> row_hints(m_rows);
     std::vector<std::vector<int>> col_hints(m_cols);
 
+    std::vector<int> col_tallies(m_cols, 0);
+
+    int lastColIndex = m_cols - 1;
+
     for (int i = 0; i < m_rows; i++) {
         int row_tally = 0;
-        std::vector<int> col_tallies(m_cols);
-
+        
         const std::vector<Cell>& currentRow = (*m_board)[i];
         for (int j = 0; j < m_cols; j++) {
             const Cell& currentCell = currentRow[j];
@@ -119,6 +122,16 @@ const Hints Board::generateHints() const {
                 row_tally++;
                 col_tallies[j]++;
             }
+        }
+
+        if (row_tally > 0) {
+            row_hints[i].push_back(row_tally);
+        }
+    }
+
+    for (int i = 0; i < m_cols; i++) {
+        if (col_tallies[i] > 0) {
+            col_hints[i].push_back(col_tallies[i]);
         }
     }
 
