@@ -8,7 +8,7 @@
 
 class BoardGenerator {
 public:
-    virtual Result<s_ptr<Board>> generateBoard(int rows, int columns) = 0;
+    virtual Result<s_ptr<Board>> generateBoard(int rows, int columns) const = 0;
 };
 
 #endif
