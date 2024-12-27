@@ -6,7 +6,7 @@
 #include <functional>
 
 // Returns a board with the diagonal filled for testing purposes.
-Result<s_ptr<Board>> FakeBoardGenerator::generateBoard(int rows, int columns) {
+Result<s_ptr<Board>> FakeBoardGenerator::generateBoard(int rows, int columns) const {
     if (rows <= 0 || columns <= 0) {
         return {nullptr, false};
     }

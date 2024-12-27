@@ -28,6 +28,7 @@ private:
     const Hints m_hints;
 };
 
+
 inline
 const std::vector<Cell> Board::getRow(int row) const {
     return (*m_board)[row];

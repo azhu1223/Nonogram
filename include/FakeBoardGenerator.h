@@ -9,7 +9,7 @@
 
 class FakeBoardGenerator : BoardGenerator {
 public:
-    virtual Result<s_ptr<Board>> generateBoard(int rows, int columns);
+    virtual Result<s_ptr<Board>> generateBoard(int rows, int columns) const;
 };
 
 #endif
