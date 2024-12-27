@@ -1,3 +1,6 @@
+#ifndef GAMEPLAY_SCENE_H
+#define GAMEPLAY_SCENE_H
+
 #include "Scene.h"
 #include "Utility.h"
 #include "Board.h"
@@ -18,3 +21,5 @@ private:
     const std::string m_horBorder;
     const size_t m_boardNumRow;
 };
+
+#endif

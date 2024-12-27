@@ -1,3 +1,6 @@
+#ifndef SCENE_H
+#define SCENE_H
+
 #include <ostream>
 
 class Scene {
@@ -12,3 +15,5 @@ private:
 
 inline 
 std::ostream& Scene::getCout() { return m_cout; }
+
+#endif

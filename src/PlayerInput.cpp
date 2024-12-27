@@ -10,7 +10,7 @@
 
 PlayerInput::PlayerInput(std::istream& cin, std::ostream& cout) : m_cin(cin), m_cout(cout) {}
 
-u_ptr<Settings> PlayerInput::getGameInitializationSettings() {
+u_ptr<Settings> PlayerInput::getGameInitializationSettings() const {
     u_ptr<Settings> settings(new Settings());
 
     bool keepAsking = true;
@@ -55,7 +55,7 @@ u_ptr<Settings> PlayerInput::getGameInitializationSettings() {
     return settings;
 }
 
-Move PlayerInput::getMove(const Board& board) {
+Move PlayerInput::getMove(const Board& board) const {
     bool keepAsking = true;
     std::string actionString;
     while (keepAsking) {
@@ -135,7 +135,7 @@ Move PlayerInput::getMove(const Board& board) {
     return {charToAction(actionString[0]), {{firstX, firstY}, {secondX, secondY}}};
 }
 
-Result<Point> PlayerInput::convertStringToPoint(const std::string& s) {
+Result<Point> PlayerInput::convertStringToPoint(const std::string& s) const {
     std::stringstream deliminationStream(s);
 
     std::string xString;
@@ -164,7 +164,7 @@ Result<Point> PlayerInput::convertStringToPoint(const std::string& s) {
     return {{x, y}, true};
 }
 
-bool PlayerInput::validIntegralAnswer(std::string s) {
+bool PlayerInput::validIntegralAnswer(std::string s) const {
     bool result = false;
 
     if (s.empty()) {
@@ -182,7 +182,7 @@ bool PlayerInput::validIntegralAnswer(std::string s) {
     return result;
 }
 
-bool PlayerInput::validProbAnswer(std::string s) {
+bool PlayerInput::validProbAnswer(std::string s) const {
     bool result = false;
 
     if (s.empty()) {
@@ -245,7 +245,7 @@ bool PlayerInput::validProbAnswer(std::string s) {
     return result;
 }
 
-Action PlayerInput::charToAction(char c) {
+Action PlayerInput::charToAction(char c) const {
     Action a;
 
     switch(c) {
