@@ -55,7 +55,7 @@ u_ptr<Settings> PlayerInput::getGameInitializationSettings() const {
     return settings;
 }
 
-Move PlayerInput::getMove(const Board& board) const {
+Move PlayerInput::getMove(int numRows, int numCols) const {
     bool keepAsking = true;
     std::string actionString;
     while (keepAsking) {
@@ -71,9 +71,6 @@ Move PlayerInput::getMove(const Board& board) const {
             keepAsking = false;
         }
     }
-
-    int numRows = board.getNumRows();
-    int numCols = board.getNumColumns();
 
     keepAsking = true;
     int firstX;

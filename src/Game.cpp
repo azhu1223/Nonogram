@@ -8,6 +8,7 @@
 #include <ostream>
 #include <string>
 #include <random>
+#include <utility>
 
 Game::Game(std::istream& cin, std::ostream& cout) : m_cin(cin), m_cout(cout), 
     m_playerInput(new PlayerInput(m_cin, m_cout)) {}
@@ -40,5 +41,67 @@ bool Game::startNewRandomGame() {
 }
 
 bool Game::play() {
+    while (!gameFinished()) {
+        m_gameplayScene->display();
+
+        Move move = m_playerInput->getMove(m_gameplayBoard->getNumRows(), m_gameplayBoard->getNumColumns());
+
+        Action action = move.first;
+        std::pair<Point, Point> startEnd = move.second;
+
+        Result<Cell> fillCellResult = actionToCell(action);
+        if (!fillCellResult.second) {
+            //Handle quit and error
+        }
+
+        m_gameplayBoard->fill(startEnd.first, startEnd.second, fillCellResult.first);
+    }
+}
+
+Result<Cell> Game::actionToCell(const Action& a) const {
+    Cell ret;
+    bool valid = true;
+
+    switch(a) {
+    case Action::FILL:
+        ret = Cell::FILLED;
+        break;
+
+    case Action::ELIMINATE:
+        ret = Cell::ELIMINATED;
+        break;
     
+    case Action::TEST:
+        ret = Cell::TEST;
+        break;
+    
+    default:
+        ret = Cell::DEFAULT;
+        valid = false;
+        break;
+    }
+
+    return {ret, valid};
+}
+
+bool Game::gameFinished() const {
+    int numRows = m_gameplayBoard->getNumRows();
+    int numCols = m_gameplayBoard->getNumColumns();
+
+    bool ret = true;
+
+    for (int i = 0; i < numRows && ret; i++) {
+        const std::vector<Cell>& gameplayBoardRow = m_gameplayBoard->getRow(i);
+        const std::vector<Cell>& answerBoardRow = m_answerBoard->getRow(i);
+
+        for (int j = 0; j < numCols; j++) {
+            if (!(gameplayBoardRow[j] == Cell::FILLED && answerBoardRow[j] == Cell::FILLED ||
+                gameplayBoardRow[j] != Cell::FILLED && answerBoardRow[j] != Cell::FILLED)) {
+                
+                ret = false;
+            }
+        }
+    }
+
+    return ret;
 }

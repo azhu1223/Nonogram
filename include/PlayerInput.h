@@ -14,7 +14,7 @@ class PlayerInput {
 public:
     PlayerInput(std::istream& cin, std::ostream& cout);
     u_ptr<Settings> getGameInitializationSettings() const;
-    Move getMove(const Board& board) const;
+    Move getMove(int numRows, int numCols) const;
 
 private:
     bool validIntegralAnswer(std::string s) const;

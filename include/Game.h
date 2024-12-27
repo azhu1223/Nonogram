@@ -14,6 +14,8 @@ public:
     bool startNewRandomGame();
     bool play();
 private:
+    bool gameFinished() const;
+    Result<Cell> actionToCell(const Action& a) const;
     std::istream& m_cin;
     std::ostream& m_cout;
     const u_ptr<PlayerInput> m_playerInput;
