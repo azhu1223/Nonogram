@@ -11,10 +11,10 @@
 class GameplayScene : Scene {
 public:
     GameplayScene(std::ostream& cout, s_ptr<Board> board, const Hints& hints);
-    virtual void display();
-    std::string generateBoardDisplay();
+    virtual void display() const;
+    std::string generateBoardDisplay() const;
 private:
-    std::string generateHints(const Hints& hints);
+    std::string generateHints(const Hints& hints) const;
     s_ptr<Board> m_board;
     
     const std::string m_hints;

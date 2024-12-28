@@ -1,11 +1,14 @@
 #include "Game.h"
 #include "RandomGameGenerator.h"
 #include "Utility.h"
+#include "StartMenuScene.h"
 
 #include <iostream>
 
 int main() {
-    RandomGameGenerator randomGameGenerator(std::cin, std::cout);
+    StartMenuScene startMenuScene(std::cout);
+    PlayerInput playerInput(std::cin, std::cout);
+    RandomGameGenerator randomGameGenerator(playerInput);
 
     bool keepPlaying = true;
     while (keepPlaying) {
