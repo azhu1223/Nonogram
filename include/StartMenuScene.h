@@ -5,7 +5,7 @@
 
 #include <ostream>
 
-class StartMenuScene : Scene {
+class StartMenuScene : public Scene {
 public:
     StartMenuScene(std::ostream& cout);
     virtual void display() const;

@@ -15,7 +15,7 @@ public:
     PlayerInput(std::istream& cin, std::ostream& cout);
     u_ptr<Settings> getGameInitializationSettings() const;
     Move getMove(int numRows, int numCols) const;
-    MainMenuResponse getMainMenuResponse() const;
+    StartMenuResponse getMainMenuResponse() const;
     std::istream& getCin() const;
     std::ostream& getCout() const;
 private:

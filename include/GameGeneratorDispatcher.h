@@ -7,7 +7,7 @@
 
 class GameGeneratorDispatcher {
 public:
-    u_ptr<GameGenerator> dispatch(const PlayerInput& playerInput, MainMenuResponse type) const;
+    u_ptr<GameGenerator> dispatch(const PlayerInput& playerInput, StartMenuResponse type) const;
 };
 
 #endif

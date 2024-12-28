@@ -8,7 +8,7 @@
 #include <ostream>
 #include <string>
 
-class GameplayScene : Scene {
+class GameplayScene : public Scene {
 public:
     GameplayScene(std::ostream& cout, s_ptr<Board> board, const Hints& hints);
     virtual void display() const;

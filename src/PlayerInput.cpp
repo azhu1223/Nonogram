@@ -139,10 +139,10 @@ Move PlayerInput::getMove(int numRows, int numCols) const {
     return {charToAction(actionString[0]), {beginPoint, endPoint}};
 }
 
-MainMenuResponse PlayerInput::getMainMenuResponse() const {
+StartMenuResponse PlayerInput::getMainMenuResponse() const {
     bool keepAsking = true;
 
-    MainMenuResponse res;
+    StartMenuResponse res;
 
     while (keepAsking) {
         m_cout << "Please select from:\n"
@@ -156,19 +156,19 @@ MainMenuResponse PlayerInput::getMainMenuResponse() const {
 
             switch (response[0]) {
             case 'r':
-                res = MainMenuResponse::RANDOM_GAME;
+                res = StartMenuResponse::RANDOM_GAME;
                 break;
 
             case 'l':
-                res = MainMenuResponse::LOAD_PUZZLE;
+                res = StartMenuResponse::LOAD_PUZZLE;
                 break;
             
             case 'm':
-                res = MainMenuResponse::MAKE_PUZZLE;
+                res = StartMenuResponse::MAKE_PUZZLE;
                 break;
             
             case 'c':
-                res = MainMenuResponse::CONTINUE_PUZZLE;
+                res = StartMenuResponse::CONTINUE_PUZZLE;
                 break;
             }
         }

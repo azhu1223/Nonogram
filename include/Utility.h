@@ -41,7 +41,7 @@ enum class GameSetting {
     FILL_PROBABILITY
 };
 
-enum class MainMenuResponse {
+enum class StartMenuResponse {
     RANDOM_GAME,
     LOAD_PUZZLE,
     MAKE_PUZZLE,

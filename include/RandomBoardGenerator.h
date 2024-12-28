@@ -9,7 +9,7 @@
 #include <random>
 #include <functional>
 
-class RandomBoardGenerator : BoardGenerator {
+class RandomBoardGenerator : public BoardGenerator {
 public:
     RandomBoardGenerator(double probOfFilled, std::function<double()> rng);
     virtual Result<s_ptr<Board>> generateBoard(int rows, int columns) const;

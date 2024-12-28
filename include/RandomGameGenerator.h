@@ -3,7 +3,7 @@
 #include "Game.h"
 #include "PlayerInput.h"
 
-class RandomGameGenerator : GameGenerator {
+class RandomGameGenerator : public GameGenerator {
 public:
     RandomGameGenerator(const PlayerInput& playerInput);
     virtual Result<u_ptr<Game>> generateGame() const;
