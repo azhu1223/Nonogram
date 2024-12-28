@@ -139,6 +139,48 @@ Move PlayerInput::getMove(int numRows, int numCols) const {
     return {charToAction(actionString[0]), {beginPoint, endPoint}};
 }
 
+MainMenuResponse PlayerInput::getMainMenuResponse() const {
+    bool keepAsking = true;
+
+    MainMenuResponse res;
+
+    while (keepAsking) {
+        m_cout << "Please select from:\n"
+            << "(r)andom puzzle, (l)oad puzzle, (m)ake puzzle, or (c)ontinue game.\n";
+        
+        std::string response;
+        std::getline(m_cin, response);
+
+        if (response.size() == 1 && response.find_first_not_of("rlmc") == std::string::npos) {
+            keepAsking = false;
+
+            switch (response[0]) {
+            case 'r':
+                res = MainMenuResponse::RANDOM_GAME;
+                break;
+
+            case 'l':
+                res = MainMenuResponse::LOAD_PUZZLE;
+                break;
+            
+            case 'm':
+                res = MainMenuResponse::MAKE_PUZZLE;
+                break;
+            
+            case 'c':
+                res = MainMenuResponse::CONTINUE_PUZZLE;
+                break;
+            }
+        }
+
+        else {
+            m_cout << "You must choose an option from (r), (l), (m), or (c).\n";
+        }
+    }
+
+    return res;
+}
+
 Result<Point> PlayerInput::convertStringToPoint(const std::string& s) const {
     std::stringstream deliminationStream(s);
 

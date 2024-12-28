@@ -10,6 +10,8 @@ int main() {
     PlayerInput playerInput(std::cin, std::cout);
     RandomGameGenerator randomGameGenerator(playerInput);
 
+    u_ptr<GameGenerator> gameGenerator;
+
     bool keepPlaying = true;
     while (keepPlaying) {
         Result<u_ptr<Game>> gameResult = randomGameGenerator.generateGame();
