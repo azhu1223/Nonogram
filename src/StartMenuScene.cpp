@@ -1,4 +1,5 @@
 #include "StartMenuScene.h"
+#include "Scene.h"
 
 #include <ostream>
 
