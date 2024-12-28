@@ -76,19 +76,24 @@ Move PlayerInput::getMove(int numRows, int numCols) const {
     int firstX;
     int firstY;
 
+    Point beginPoint;
+    Point endPoint;
+
     while (keepAsking) {
-        m_cout << "Where would you like to start from? Provide a coordinate where the values are deliminated by a space.\n";
+        m_cout << "Where would you like to start from? Provide a coordinate where the values are deliminated by a space. Column major order.\n";
 
         std::string coordinateString;
         std::getline(m_cin, coordinateString);
         
-        Result<Point> pointCoversionResult = convertStringToPoint(coordinateString);
+        Result<Point> pointCoversionResult(convertStringToPoint(coordinateString));
         if (pointCoversionResult.second) {
             firstX = pointCoversionResult.first.first;
             firstY = pointCoversionResult.first.second;
 
             if (firstX < numRows && firstY < numCols) {
                 keepAsking = false;
+
+                beginPoint.swap(pointCoversionResult.first);
             }
 
             else {
@@ -102,12 +107,12 @@ Move PlayerInput::getMove(int numRows, int numCols) const {
     int secondY;
 
     while (keepAsking) {
-        m_cout << "Where would you like to end? Coordinate must be vertically or horizontally in line with the previous point.\n";
+        m_cout << "Where would you like to end? Coordinate must be vertically or horizontally in line with the previous point. Column major order.\n";
 
         std::string coordinateString;
         std::getline(m_cin, coordinateString);
         
-        Result<Point> pointCoversionResult = convertStringToPoint(coordinateString);
+        Result<Point> pointCoversionResult(convertStringToPoint(coordinateString));
         if (pointCoversionResult.second) {
             secondX = pointCoversionResult.first.first;
             secondY = pointCoversionResult.first.second;
@@ -116,6 +121,8 @@ Move PlayerInput::getMove(int numRows, int numCols) const {
 
                 if (firstX == secondX || firstY == secondY) {
                     keepAsking = false;
+
+                    endPoint.swap(pointCoversionResult.first);
                 }
 
                 else {
@@ -129,7 +136,7 @@ Move PlayerInput::getMove(int numRows, int numCols) const {
         }
     }
 
-    return {charToAction(actionString[0]), {{firstX, firstY}, {secondX, secondY}}};
+    return {charToAction(actionString[0]), {beginPoint, endPoint}};
 }
 
 Result<Point> PlayerInput::convertStringToPoint(const std::string& s) const {

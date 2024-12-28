@@ -118,7 +118,7 @@ TEST_F(PlayerInputTest, ValidGetMoveTest) {
     std::getline(cout, outputString);
     EXPECT_EQ(outputString, "What action would you like to perform? (f)ill, (e)liminate, (t)est.");
     std::getline(cout, outputString);
-    EXPECT_EQ(outputString, "Where would you like to start from? Provide a coordinate where the values are deliminated by a space.");
+    EXPECT_EQ(outputString, "Where would you like to start from? Provide a coordinate where the values are deliminated by a space. Column major order.");
     std::getline(cout, outputString);
-    EXPECT_EQ(outputString, "Where would you like to end? Coordinate must be vertically or horizontally in line with the previous point.");
+    EXPECT_EQ(outputString, "Where would you like to end? Coordinate must be vertically or horizontally in line with the previous point. Column major order.");
 }

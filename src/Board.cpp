@@ -13,10 +13,10 @@ Board::Board(int numRows, int numCols) : m_rows(numRows), m_cols(numCols) {
 }
 
 bool Board::fill(const Point& start, const Point& end, const Cell& type) {
-    int startRow = start.first;
-    int startCol = start.second;
-    int endRow = end.first;
-    int endCol = end.second;
+    int startCol = start.first;
+    int startRow = start.second;
+    int endCol = end.first;
+    int endRow = end.second;
 
     if (startRow < 0 || startRow >= m_rows) {
         return false;
