@@ -7,7 +7,7 @@
 
 #include <functional>
 
-class FakeBoardGenerator : BoardGenerator {
+class FakeBoardGenerator : public BoardGenerator {
 public:
     virtual Result<s_ptr<Board>> generateBoard(int rows, int columns) const;
 };

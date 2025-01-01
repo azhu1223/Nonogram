@@ -10,11 +10,11 @@
 GameplayScene::GameplayScene(std::ostream& cout, s_ptr<Board> board, const Hints& hints) : Scene(cout), m_board(board), m_hints(std::move(generateHints(hints))), 
     m_horBorder(1 + 2 * (m_board->getNumRows()), '-'), m_boardNumRow(m_board->getNumRows()) {}
 
-void GameplayScene::display() {
+void GameplayScene::display() const {
     getCout() << generateBoardDisplay() << m_hints;
 }
 
-std::string GameplayScene::generateBoardDisplay() {
+std::string GameplayScene::generateBoardDisplay() const {
     std::stringstream boardStringStream;
     boardStringStream << m_horBorder << '\n';
 
@@ -31,7 +31,7 @@ std::string GameplayScene::generateBoardDisplay() {
     return boardStringStream.str();
 }
 
-std::string GameplayScene::generateHints(const Hints& hints) {
+std::string GameplayScene::generateHints(const Hints& hints) const {
     const std::vector<std::vector<int>> row_hints = hints.first;
     const std::vector<std::vector<int>> col_hints = hints.second;
 

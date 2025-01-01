@@ -41,6 +41,13 @@ enum class GameSetting {
     FILL_PROBABILITY
 };
 
+enum class StartMenuResponse {
+    RANDOM_GAME,
+    LOAD_PUZZLE,
+    MAKE_PUZZLE,
+    CONTINUE_PUZZLE
+};
+
 // Column major order; {x, y}
 using Point = std::pair<int, int>;
 

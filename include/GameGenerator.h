@@ -3,28 +3,32 @@
 
 #include "Utility.h"
 #include "Game.h"
+#include "PlayerInput.h"
 
 #include <istream>
 #include <ostream>
 
 class GameGenerator {
 public:
-    GameGenerator(std::istream& cin, std::ostream& cout);
+    GameGenerator(const PlayerInput& playerInput);
     virtual Result<u_ptr<Game>> generateGame() const = 0;
     std::istream& getCin() const;
     std::ostream& getCout() const;
+    const PlayerInput& getPlayerInput() const;
 private:
-    std::istream& m_cin;
-    std::ostream& m_cout;
+    const PlayerInput& m_playerInput;
 };
 
 inline
-GameGenerator::GameGenerator(std::istream& cin, std::ostream& cout) : m_cin(cin), m_cout(cout) {}
+GameGenerator::GameGenerator(const PlayerInput& playerInput) : m_playerInput(playerInput){}
 
 inline
-std::istream& GameGenerator::getCin() const { return m_cin; }
+std::istream& GameGenerator::getCin() const { return m_playerInput.getCin(); }
 
 inline
-std::ostream& GameGenerator::getCout() const { return m_cout; }
+std::ostream& GameGenerator::getCout() const { return m_playerInput.getCout(); }
+
+inline
+const PlayerInput& GameGenerator::getPlayerInput() const { return m_playerInput; }
 
 #endif

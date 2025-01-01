@@ -11,11 +11,10 @@
 #include <random>
 #include <utility>
 
-Game::Game(std::istream& cin, std::ostream& cout) : m_cin(cin), m_cout(cout), 
-    m_playerInput(new PlayerInput(m_cin, m_cout)) {}
+Game::Game(const PlayerInput& playerInput) : m_playerInput(playerInput) {}
 
 bool Game::startNewRandomGame() {
-    u_ptr<Settings> gameSettings = m_playerInput->getGameInitializationSettings();
+    u_ptr<Settings> gameSettings = m_playerInput.getGameInitializationSettings();
 
     int rowSize = std::stoi((*gameSettings)[GameSetting::ROW_SIZE]);
     int colSize = std::stoi((*gameSettings)[GameSetting::COLUMN_SIZE]);
@@ -36,7 +35,7 @@ bool Game::startNewRandomGame() {
 
     m_gameplayBoard = s_ptr<Board>(new Board(rowSize, colSize));
 
-    m_gameplayScene = u_ptr<GameplayScene>(new GameplayScene(m_cout, m_gameplayBoard, m_answerBoard->getHints()));
+    m_gameplayScene = u_ptr<GameplayScene>(new GameplayScene(m_playerInput.getCout(), m_gameplayBoard, m_answerBoard->getHints()));
 
     return true;
 }
@@ -45,7 +44,7 @@ bool Game::play() {
     while (!gameFinished()) {
         m_gameplayScene->display();
 
-        Move move = m_playerInput->getMove(m_gameplayBoard->getNumRows(), m_gameplayBoard->getNumColumns());
+        Move move = m_playerInput.getMove(m_gameplayBoard->getNumRows(), m_gameplayBoard->getNumColumns());
 
         Action action = move.first;
         std::pair<Point, Point> startEnd = move.second;
@@ -58,7 +57,7 @@ bool Game::play() {
         m_gameplayBoard->fill(startEnd.first, startEnd.second, fillCellResult.first);
     }
 
-    m_cout << "Congratulations! You finished the puzzle.\n" << m_gameplayScene->generateBoardDisplay();
+    m_playerInput.getCout() << "Congratulations! You finished the puzzle.\n" << m_gameplayScene->generateBoardDisplay();
 
     return true;
 }

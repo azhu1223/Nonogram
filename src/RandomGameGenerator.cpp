@@ -4,10 +4,10 @@
 
 #include <memory>
 
-RandomGameGenerator::RandomGameGenerator(std::istream& cin, std::ostream& cout) : GameGenerator(cin, cout) {}
+RandomGameGenerator::RandomGameGenerator(const PlayerInput& playerInput) : GameGenerator(playerInput) {}
 
 Result<u_ptr<Game>> RandomGameGenerator::generateGame() const {
-    u_ptr<Game> newGame(new Game(getCin(), getCout()));
+    u_ptr<Game> newGame(new Game(getPlayerInput()));
 
     if (!newGame->startNewRandomGame()) {
         return {nullptr, false};

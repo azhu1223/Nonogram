@@ -15,7 +15,9 @@ public:
     PlayerInput(std::istream& cin, std::ostream& cout);
     u_ptr<Settings> getGameInitializationSettings() const;
     Move getMove(int numRows, int numCols) const;
-
+    StartMenuResponse getMainMenuResponse() const;
+    std::istream& getCin() const;
+    std::ostream& getCout() const;
 private:
     bool validIntegralAnswer(std::string s) const;
     bool validProbAnswer(std::string s) const;
@@ -24,5 +26,11 @@ private:
     std::istream& m_cin;
     std::ostream& m_cout;
 };
+
+inline
+std::istream& PlayerInput::getCin() const { return m_cin; }
+
+inline
+std::ostream& PlayerInput::getCout() const { return m_cout; }
 
 #endif

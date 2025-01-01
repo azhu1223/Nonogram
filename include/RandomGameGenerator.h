@@ -1,13 +1,11 @@
 #include "GameGenerator.h"
 #include "Utility.h"
 #include "Game.h"
+#include "PlayerInput.h"
 
-#include <istream>
-#include <ostream>
-
-class RandomGameGenerator : GameGenerator {
+class RandomGameGenerator : public GameGenerator {
 public:
-    RandomGameGenerator(std::istream& cin, std::ostream& cout);
+    RandomGameGenerator(const PlayerInput& playerInput);
     virtual Result<u_ptr<Game>> generateGame() const;
 private:
 };

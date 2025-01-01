@@ -10,18 +10,17 @@
 
 class Game {
 public:
-    Game(std::istream& cin, std::ostream& cout);
+    Game(const PlayerInput& playerInput);
     bool startNewRandomGame();
     bool play();
 private:
     bool gameFinished() const;
     Result<Cell> actionToCell(const Action& a) const;
-    std::istream& m_cin;
-    std::ostream& m_cout;
-    const u_ptr<PlayerInput> m_playerInput;
     s_ptr<Board> m_answerBoard;
     s_ptr<Board> m_gameplayBoard;
     u_ptr<GameplayScene> m_gameplayScene;
+
+    const PlayerInput& m_playerInput;
 };
 
 #endif
