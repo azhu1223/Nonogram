@@ -11,6 +11,7 @@ u_ptr<GameGenerator> GameGeneratorDispatcher::dispatch(const PlayerInput& player
     switch (type) {
     case StartMenuResponse::RANDOM_GAME:
         res = std::make_unique<RandomGameGenerator>(playerInput);
+        break;
     }
 
     return res;
