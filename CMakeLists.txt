@@ -34,9 +34,16 @@ include(GoogleTest)
 set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 FetchContent_MakeAvailable(googletest)
 
+FetchContent_Declare(
+  json 
+  URL https://github.com/nlohmann/json/releases/latest
+)
+FetchContent_MakeAvailable(json)
+
 enable_testing()
 
 include_directories(include)
+include_directories(libraries)
 
 # Libraries
 add_library(Game_lib src/Game.cpp)
